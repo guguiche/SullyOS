@@ -67,6 +67,8 @@ import { applyPriming, checkRumination } from './priming';
 import { expandAndFormat } from './formatter';
 import { runConsolidation } from './consolidation';
 import { rerankDocuments } from './rerank';
+// ombre-brain 540c6b65Ff085199516594a95b50Ff09
+import { ombreHoldBatch, loadOmbreSession, loadOmbreConfig } from './ombreBrain';
 // 认知消化由用户在记忆宫殿 App 手动触发，不在聊天管线中自动运行
 import { MemoryNodeDB, MemoryVectorDB, MemoryLinkDB, AnticipationDB } from './db';
 import { DB } from '../db';
@@ -1427,8 +1429,6 @@ export async function processNewMessages(
         }
         const newHighWaterMark = toProcess[toProcess.length - 1].id;
         setLastProcessedId(charId, newHighWaterMark);
-        console.log(`✅ [Pipeline] 缓冲区处理完成：${vectorResult.stored} 条记忆, hwm ${lastProcessedId} → ${newHighWaterMark}`);
-        onProgress?.(`记忆整理完成！新增 ${vectorResult.stored} 条记忆`);
 
         // 9b. 自动归档建议：按日期 group 新记忆 → YAML bullets → 合成 MemoryFragment
         //     caller（useChatAI / Chat）拿到后做"同日期 merge 进 char.memories + 推 hideBeforeMessageId"

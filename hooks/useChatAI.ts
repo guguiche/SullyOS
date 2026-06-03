@@ -1025,9 +1025,6 @@ export const useChatAI = ({
                         if (!liveAfter?.memoryPalaceEnabled) return;
 
                         // 显示结果让用户看到
-                        if (pipelineResult && pipelineResult.stored > 0) {
-                            setMemoryPalaceResult(pipelineResult);
-                        }
 
                         // 自动归档：把 palace 提取出的记忆按日期合成 YAML bullets 追加到
                         // char.memories，同时推 hideBeforeMessageId 自动隐藏已总结的聊天
