@@ -33,6 +33,7 @@ import {
   Notebook,
   Plugs,
   Newspaper,
+  FilmReel,
 } from '@phosphor-icons/react';
 
 // SVG 图标库 - Phosphor Icons
@@ -70,6 +71,7 @@ export const Icons: Record<string, React.FC<{ className?: string }>> = {
   Handbook: ({ className }) => <Notebook className={className} weight="bold" />,
   QQBridge: ({ className }) => <Plugs className={className} weight="bold" />,
   HotNews: ({ className }) => <Newspaper className={className} weight="fill" />,
+  Cinema: ({ className }) => <FilmReel className={className} weight="bold" />,
 };
 
 export const INSTALLED_APPS: AppConfig[] = [
@@ -95,6 +97,7 @@ export const INSTALLED_APPS: AppConfig[] = [
   { id: AppID.Schedule, name: '时光契约', icon: 'Schedule', color: 'cyan' },
   { id: AppID.Worldbook, name: '世界书', icon: 'Worldbook', color: 'indigo' },
   { id: AppID.HotNews, name: '热点', icon: 'HotNews', color: 'red' },
+  { id: AppID.Quiz, name: '刷题', icon: 'Quiz', color: 'pink' },
   { id: AppID.FAQ, name: '使用帮助', icon: 'FAQ', color: 'indigo' },
   { id: AppID.Gallery, name: '相册', icon: 'Gallery', color: 'orange' },
   { id: AppID.XhsFreeRoam, name: '自由活动', icon: 'XhsFreeRoam', color: 'rose' },
@@ -102,6 +105,7 @@ export const INSTALLED_APPS: AppConfig[] = [
   { id: AppID.ThemeMaker, name: '气泡工坊', icon: 'ThemeMaker', color: 'purple' },
   { id: AppID.Appearance, name: '外观', icon: 'Appearance', color: 'slate' },
   { id: AppID.Settings, name: '设置', icon: 'Settings', color: 'slate' },
+  { id: AppID.Cinema, name: '观影室', icon: 'Cinema', color: 'rose' },
   { id: AppID.Guidebook, name: '攻略本', icon: 'Guidebook', color: 'slate' },
   { id: AppID.LifeSim, name: '都市人生', icon: 'LifeSim', color: 'purple' },
   { id: AppID.SpecialMoments, name: '特别时光', icon: 'SpecialMoments', color: 'pink' },

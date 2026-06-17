@@ -188,7 +188,7 @@ function concatBytes(...chunks) {
   return out;
 }
 
-// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.1/node_modules/@rei-standard/amsg-instant/dist/adapters/cloudflare.mjs
+// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.2/node_modules/@rei-standard/amsg-instant/dist/adapters/cloudflare.mjs
 function isValidUrl(s) {
   if (typeof s !== "string") return false;
   try {
@@ -1088,13 +1088,23 @@ function readReasoningContent(llmResponse) {
   );
   if (!Array.isArray(choices) || choices.length === 0) return null;
   const message = (
-    /** @type {{ message?: { reasoning_content?: unknown } }} */
+    /** @type {{ message?: { reasoning_content?: unknown, content?: unknown } }} */
     choices[0]?.message
   );
   const raw = message?.reasoning_content;
-  if (typeof raw !== "string") return null;
-  const trimmed = raw.trim();
-  return trimmed.length > 0 ? trimmed : null;
+  if (typeof raw === "string") {
+    const trimmed = raw.trim();
+    if (trimmed.length > 0) return trimmed;
+  }
+  const content = message?.content;
+  if (typeof content === "string") {
+    const match = content.match(/<(think|thinking|thought)>([\s\S]*?)<\/\1>/i);
+    if (match) {
+      const trimmed = match[2].trim();
+      if (trimmed.length > 0) return trimmed;
+    }
+  }
+  return null;
 }
 async function processInstantMessage(payload, ctx) {
   if (!ctx.onLLMOutput && !ctx.isResume) {
@@ -1949,7 +1959,7 @@ function createCloudflareWorker(optionsBuilder) {
   };
 }
 
-// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.1/node_modules/@rei-standard/amsg-instant/dist/blob/d1.mjs
+// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.2/node_modules/@rei-standard/amsg-instant/dist/blob/d1.mjs
 function createD1BlobStore(db, opts = {}) {
   if (!db || typeof db.prepare !== "function") {
     throw new TypeError("createD1BlobStore: db must be a D1 Database binding");
@@ -1982,7 +1992,7 @@ function sanitizeTable(value) {
   return value;
 }
 
-// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.1/node_modules/@rei-standard/amsg-instant/dist/index.mjs
+// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.2/node_modules/@rei-standard/amsg-instant/dist/index.mjs
 var TEXT_ENCODER2 = new TextEncoder();
 var TEXT_DECODER2 = new TextDecoder("utf-8", { fatal: false });
 function utf82(str) {
@@ -2467,18 +2477,6 @@ function buildBlobUrl2(requestUrl, key) {
   }
   return `/blob/${key}`;
 }
-
-// node_modules/.pnpm/@rei-standard+amsg-instant@0.8.2/node_modules/@rei-standard/amsg-instant/dist/index.mjs
-var TEXT_ENCODER3 = new TextEncoder();
-var TEXT_DECODER3 = new TextDecoder("utf-8", { fatal: false });
-function utf83(str) {
-  return TEXT_ENCODER3.encode(String(str));
-}
-var KEY_INFO_PREFIX3 = utf83("WebPush: info\0");
-var CEK_INFO3 = utf83("Content-Encoding: aes128gcm\0");
-var NONCE_INFO3 = utf83("Content-Encoding: nonce\0");
-var VAPID_TOKEN_LIFETIME3 = 12 * 3600;
-var PUSH_PAYLOAD_BYTE_ENCODER3 = new TextEncoder();
 function segmentTextWithProtectedBlocks(text, options) {
   if (!text) return [];
   const splitAndSanitize = (plainText) => {

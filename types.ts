@@ -34,7 +34,8 @@ export enum AppID {
   MemoryPalace = 'memory_palace', // 记忆宫殿 — 七个房间可视化
   Handbook = 'handbook', // 手账 — 跨角色聚合的生活留痕本（LLM 代笔 + 角色生活流陪伴）
   QQBridge = 'qq_bridge', // QQ 桥接 — 通过 NapCat 把 QQ 私聊接入当前角色，共享 IndexedDB 上下文
-  HotNews = 'hot_news', // 热点 — 分时段召回的多平台热榜可视化（决定角色可能聊起的话题）
+  HotNews = 'hot_news',
+  Quiz = 'quiz', // 热点 — 分时段召回的多平台热榜可视化（决定角色可能聊起的话题）
 }
 
 export interface SystemLog {
@@ -2153,4 +2154,126 @@ export interface LifeSimState {
     buildings?: SimBuilding[];
     worldInventory?: Record<string, number>;
     worldGold?: number;
+}
+
+// ===== Cinema App Types (from KI-CO CinemaCompanionRoom) =====
+export type SourceType = "local-file" | "web-url";
+
+export interface SubtitleCue {
+  id: string;
+  start: number;
+  end: number;
+  text: string;
+}
+
+export interface SubtitleWindow {
+  active?: SubtitleCue;
+  previous: SubtitleCue[];
+  next: SubtitleCue[];
+}
+
+export interface WatchRecord {
+  id: string;
+  title: string;
+  sourceType: SourceType;
+  sourceLabel: string;
+  currentTime: number;
+  duration: number;
+  updatedAt: string;
+  thumbnailDataUrl?: string;
+  subtitleFileName?: string;
+  subtitleCount?: number;
+  subtitleOffsetSeconds?: number;
+  webUrl?: string;
+  webOriginalUrl?: string;
+  webEmbedUrl?: string;
+  webPlatform?: "bilibili";
+  webMode?: "embed" | "page";
+  companionPlan?: CompanionPlanPoint[];
+  companionMode?: string;
+  companionDensity?: string;
+  triggeredPlanIds?: string[];
+}
+
+export interface WatchContext {
+  title: string;
+  currentTime: number;
+  duration: number;
+  sourceType: SourceType;
+  activeSubtitle?: SubtitleCue;
+  subtitleWindow: SubtitleWindow;
+  screenshotDataUrl?: string;
+}
+
+export interface CompanionPlanPoint {
+  id: string;
+  time: number;
+  subtitle?: string;
+  companionHint: string;
+  type?: "emotion" | "observe" | "question" | "memory";
+  priority?: "high" | "medium" | "low";
+  delivery?: "auto" | "hint" | "manual";
+}
+
+export interface ConversationTurn {
+  role: "user" | "companion";
+  text: string;
+  attachments?: ConversationAttachment[];
+}
+
+export interface ConversationAttachment {
+  id: string;
+  type: "image" | "file";
+  name: string;
+  mimeType: string;
+  size: number;
+  dataUrl?: string;
+  text?: string;
+}
+
+export interface CompanionRequest {
+  mode?: "cinema" | "chat" | "plan" | "watchPrompt";
+  cacheScope?: string;
+  userMessage: string;
+  attachments?: ConversationAttachment[];
+  watch: WatchContext;
+  personaCore: string;
+  userContext?: string;
+  memories: MemorySnippet[];
+  recentMessages?: ConversationTurn[];
+  onStreamUpdate?: (text: string) => void;
+}
+
+export interface MemorySnippet {
+  id: string;
+  title: string;
+  text: string;
+  score?: number;
+  source?: string;
+}
+
+export interface CompanionResponse {
+  text: string;
+  promptPreview?: string;
+  modelUsed?: string;
+  tokenCount?: number;
+}
+
+export interface LLMAdapter {
+  complete(request: CompanionRequest): Promise<CompanionResponse>;
+}
+
+export interface PersonaAdapter {
+  getPersonaCore(): Promise<string>;
+  getUserContext?(): Promise<string>;
+}
+
+export interface MemoryAdapter {
+  retrieveRelevant(query: string, limit?: number): Promise<MemorySnippet[]>;
+}
+
+export interface CompanionAdapters {
+  persona: PersonaAdapter;
+  memory: MemoryAdapter;
+  llm: LLMAdapter;
 }
