@@ -2607,7 +2607,44 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
               return result;
           };
 
+          // ── memory_links 分批预写 ──
+          // 107万条全量加载必定爆内存，改用游标分批读 + JSZip 原生分片写。
+          // 预写完后从 backupData 删除，writeV2Backup 看到 undefined 跳过不错。
+          const MEMORY_LINKS_BATCH = 5000;
+          let mlChunks: string[] = [];
+          let mlBufLen = 0;
+          let mlParts = 0;
+          let mlTotalCount = 0;
+          const mlFlush = () => {
+              if (mlChunks.length === 0) return;
+              zip.file(`stores/memoryLinks.${String(mlParts).padStart(3, '0')}.json`, '[' + mlChunks.join(',') + ']');
+              mlParts++;
+              mlChunks = [];
+              mlBufLen = 0;
+          };
+          await DB.getStoreDataChunked('memory_links', async (batch: any[]) => {
+              for (const item of batch) {
+                  const s = JSON.stringify(item);
+                  mlChunks.push(s);
+                  mlBufLen += s.length;
+                  mlTotalCount++;
+                  if (mlBufLen >= 32 * 1024 * 1024 || mlChunks.length >= MEMORY_LINKS_BATCH) {
+                      mlFlush();
+                      setSysOperation({ status: 'processing', message: `正在打包 memory_links: ${mlTotalCount} 条...`, progress: (currentStep / totalSteps) * 100 });
+                      await new Promise(r => setTimeout(r, 0));
+                  }
+              }
+          }, MEMORY_LINKS_BATCH);
+          mlFlush();
+          // 记录 manifest 条目
+          const _mlManifestEntry = { parts: mlParts, count: mlTotalCount };
+          // 让出主线程释放 IDB 旧事务引用
+          await new Promise(r => setTimeout(r, 10));
+
           for (const storeName of storesToProcess) {
+              // memory_links 已在上方分批预写完，跳过读和写
+              if (storeName === 'memory_links') { currentStep++; continue; }
+
               currentStep++;
               setSysOperation({
                   status: 'processing',
@@ -2746,7 +2783,7 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
                   case 'hotnews_snapshots': backupData.hotNewsSnapshots = processedData; break;
                   case 'memory_nodes': backupData.memoryNodes = processedData; break;
                   case 'memory_vectors': backupData.memoryVectors = processedData; break;
-                  case 'memory_links': backupData.memoryLinks = processedData; break;
+                  // memory_links 已在上方分批预写完毕，不在此处理
                   case 'topic_boxes': backupData.topicBoxes = processedData; break;
                   case 'anticipations': backupData.anticipations = processedData; break;
                   case 'event_boxes': backupData.eventBoxes = processedData; break;
@@ -2757,6 +2794,11 @@ export const OSProvider: React.FC<{ children: React.ReactNode }> = ({ children }
               }
 
               await new Promise(resolve => setTimeout(resolve, 10));
+          }
+
+          // memory_links 的 manifest 条目：预写已在上方完成，记录元数据供导入端认读
+          if (mlTotalCount > 0) {
+              zip.file('stores/_memoryLinks_meta.json', JSON.stringify(_mlManifestEntry));
           }
 
           // 进度条停在 70% 让用户看到接下来的"压缩中 X%"实际推进，而不是
