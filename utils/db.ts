@@ -1574,6 +1574,51 @@ export const DB = {
       });
   },
 
+  /**
+   * 游标分批读整表：每攒够 batchSize 条回调一次 onBatch(batch)，回调内消费完即释放，
+   * 绝不像 getRawStoreData 那样把整表一次性 getAll 进内存。导出大 store 时用它，把读取
+   * 峰值从「整个 store」降到「一个 batch」。
+   */
+  getStoreDataChunked: async (
+      storeName: string,
+      onBatch: (batch: any[]) => void | Promise<void>,
+      batchSize = 200,
+  ): Promise<void> => {
+      const db = await openDB();
+      if (!db.objectStoreNames.contains(storeName)) return;
+
+      let lastKey: IDBValidKey | null = null;
+      for (;;) {
+          const { batch, newLastKey, done } = await new Promise<{
+              batch: any[]; newLastKey: IDBValidKey | null; done: boolean;
+          }>((resolve, reject) => {
+              const tx = db.transaction(storeName, 'readonly');
+              const store = tx.objectStore(storeName);
+              const range = lastKey !== null ? IDBKeyRange.lowerBound(lastKey, true) : undefined;
+              const req = store.openCursor(range);
+              const collected: any[] = [];
+              let bLast: IDBValidKey | null = lastKey;
+              let bDone = false;
+              req.onsuccess = () => {
+                  const cursor = req.result;
+                  if (!cursor) { bDone = true; return; }
+                  if (collected.length >= batchSize) return;
+                  collected.push(cursor.value);
+                  bLast = cursor.primaryKey;
+                  cursor.continue();
+              };
+              req.onerror = () => reject(req.error);
+              tx.oncomplete = () => resolve({ batch: collected, newLastKey: bLast, done: bDone });
+              tx.onerror = () => reject(tx.error || new Error('getStoreDataChunked tx failed'));
+              tx.onabort = () => reject(tx.error || new Error('getStoreDataChunked tx aborted'));
+          });
+
+          if (batch.length > 0) await onBatch(batch);
+          lastKey = newLastKey;
+          if (done) break;
+      }
+  },
+
   exportFullData: async (): Promise<Partial<FullBackupData>> => {
       const db = await openDB();
       
