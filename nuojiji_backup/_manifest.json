@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1786119423267,
+  "timestamp": 1786119470411,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -125,7 +125,11 @@
     "healthEntries": true,
     "healthProfile": true,
     "homelandState": true,
-    "fontStore": true
+    "fontStore": true,
+    "customBgm": true,
+    "radioData": true,
+    "isekaiPresets": true,
+    "naiVibeCache": true
   },
   "source": "auto",
   "inProgress": true
