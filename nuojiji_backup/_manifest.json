@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1787068307367,
+  "timestamp": 1787068354184,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -110,7 +110,11 @@
     "goingOutAreas": true,
     "mapRasterCache": true,
     "customGames": true,
-    "customWidgetTemplates": true
+    "customWidgetTemplates": true,
+    "customWidgetState": true,
+    "wallpapers": true,
+    "whiteDogData": true,
+    "isekaiSaves": true
   },
   "source": "auto",
   "inProgress": true
