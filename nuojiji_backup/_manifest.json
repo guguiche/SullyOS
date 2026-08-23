@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1787485633896,
+  "timestamp": 1787485724129,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -72,7 +72,8 @@
   "chunkedTables": {
     "stickers": 2,
     "messages": 24,
-    "summaryEntries": 2
+    "summaryEntries": 2,
+    "tmStories": 1
   },
   "completedTables": {
     "characters": true,
@@ -86,7 +87,8 @@
     "memory": true,
     "callLogs": true,
     "friendRequests": true,
-    "roleStickers": true
+    "roleStickers": true,
+    "tmSessions": true
   },
   "source": "auto",
   "inProgress": true
