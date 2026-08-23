@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1787485942981,
+  "timestamp": 1787508103830,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -69,28 +69,6 @@
     "naiVibeCache",
     "_migration"
   ],
-  "chunkedTables": {
-    "stickers": 2,
-    "messages": 24,
-    "summaryEntries": 2,
-    "tmStories": 4
-  },
-  "completedTables": {
-    "characters": true,
-    "worldBooks": true,
-    "kaomojis": true,
-    "users": true,
-    "userState": true,
-    "userPosts": true,
-    "chatSettings": true,
-    "favorites": true,
-    "memory": true,
-    "callLogs": true,
-    "friendRequests": true,
-    "roleStickers": true,
-    "tmSessions": true,
-    "multiSceneSessions": true
-  },
   "source": "auto",
   "inProgress": true
 }
