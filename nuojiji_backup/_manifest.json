@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1787414156938,
+  "timestamp": 1787463194114,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -17,6 +17,7 @@
     "memory",
     "summaryEntries",
     "callLogs",
+    "friendRequests",
     "roleStickers",
     "tmSessions",
     "tmStories",
@@ -45,6 +46,7 @@
     "goingOutAreas",
     "mapRasterCache",
     "customGames",
+    "customGameSaves",
     "customWidgetTemplates",
     "customWidgetState",
     "wallpapers",
@@ -67,19 +69,6 @@
     "naiVibeCache",
     "_migration"
   ],
-  "chunkedTables": {
-    "stickers": 2,
-    "messages": 86
-  },
-  "completedTables": {
-    "characters": true,
-    "worldBooks": true,
-    "kaomojis": true,
-    "users": true,
-    "userState": true,
-    "userPosts": true,
-    "chatSettings": true
-  },
   "source": "auto",
   "inProgress": true
 }
