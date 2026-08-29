@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788015786663,
+  "timestamp": 1788015866641,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -86,7 +86,8 @@
     "_migration"
   ],
   "chunkedTables": {
-    "stickers": 2
+    "stickers": 2,
+    "summaryEntries": 1
   },
   "completedTables": {
     "characters": true,
@@ -95,7 +96,9 @@
     "kaomojis": true,
     "userState": true,
     "userPosts": true,
-    "chatSettings": true
+    "chatSettings": true,
+    "favorites": true,
+    "memory": true
   },
   "source": "auto",
   "inProgress": true
