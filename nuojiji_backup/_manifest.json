@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788099604062,
+  "timestamp": 1788100741805,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -85,10 +85,6 @@
     "charLifePlans",
     "_migration"
   ],
-  "completedTables": {
-    "characters": true,
-    "friendRequests": true
-  },
   "source": "auto",
   "inProgress": true
 }
