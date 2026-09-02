@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788277616120,
+  "timestamp": 1788347064455,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -36,6 +36,7 @@
     "ttsAudio",
     "forumData",
     "calendarData",
+    "customCalendars",
     "groupChats",
     "xinsheng",
     "pomodoroSessions",
@@ -86,23 +87,6 @@
     "charLifePlans",
     "_migration"
   ],
-  "chunkedTables": {
-    "stickers": 2,
-    "messages": 61,
-    "summaryEntries": 4
-  },
-  "completedTables": {
-    "characters": true,
-    "friendRequests": true,
-    "worldBooks": true,
-    "kaomojis": true,
-    "users": true,
-    "userState": true,
-    "userPosts": true,
-    "chatSettings": true,
-    "favorites": true,
-    "memory": true
-  },
   "source": "auto",
   "inProgress": true
 }
