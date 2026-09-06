@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788684978271,
+  "timestamp": 1788685006558,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -139,7 +139,9 @@
     "customWidgetState": true,
     "wallpapers": true,
     "lifeRpgData": true,
-    "whiteDogData": true
+    "whiteDogData": true,
+    "isekaiSaves": true,
+    "isekaiPresets": true
   },
   "source": "auto",
   "inProgress": true
