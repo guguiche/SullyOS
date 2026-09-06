@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788684867744,
+  "timestamp": 1788684910842,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -130,7 +130,11 @@
     "pomodoroSessions": true,
     "couplesData": true,
     "quickReplies": true,
-    "goingOutState": true
+    "goingOutState": true,
+    "goingOutAreas": true,
+    "mapRasterCache": true,
+    "customGames": true,
+    "customGameSaves": true
   },
   "source": "auto",
   "inProgress": true
