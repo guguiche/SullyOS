@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788798692596,
+  "timestamp": 1788801031866,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -83,25 +83,13 @@
     "shopFulfillments",
     "chatVariables",
     "plugins",
+    "avatarFrames",
     "pluginAssets",
     "pluginData",
+    "charBondSpaces",
     "charLifePlans",
     "_migration"
   ],
-  "chunkedTables": {
-    "stickers": 2,
-    "messages": 17
-  },
-  "completedTables": {
-    "characters": true,
-    "friendRequests": true,
-    "worldBooks": true,
-    "kaomojis": true,
-    "users": true,
-    "userState": true,
-    "userPosts": true,
-    "chatSettings": true
-  },
   "source": "auto",
   "inProgress": true
 }
