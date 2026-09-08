@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788841378358,
+  "timestamp": 1788841385312,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -155,7 +155,8 @@
     "healthProfile": true,
     "homelandState": true,
     "fontStore": true,
-    "radioData": true
+    "radioData": true,
+    "novelBooks": true
   },
   "source": "auto",
   "inProgress": true
