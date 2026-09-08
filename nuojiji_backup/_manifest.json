@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1788859388590,
+  "timestamp": 1788859395039,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -162,7 +162,8 @@
     "coReadBooks": true,
     "coReadChapters": true,
     "coReadSessions": true,
-    "coReadQuotes": true
+    "coReadQuotes": true,
+    "naiVibeCache": true
   },
   "source": "auto",
   "inProgress": true
