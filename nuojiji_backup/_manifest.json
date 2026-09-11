@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1789105432395,
+  "timestamp": 1789105439268,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -170,7 +170,8 @@
     "shopOrders": true,
     "shopData": true,
     "shopFulfillments": true,
-    "chatVariables": true
+    "chatVariables": true,
+    "plugins": true
   },
   "source": "auto",
   "inProgress": true
