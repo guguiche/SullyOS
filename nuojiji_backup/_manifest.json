@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1789291906367,
+  "timestamp": 1789291915554,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -164,7 +164,8 @@
     "walletData": true,
     "shopOrders": true,
     "shopData": true,
-    "deliveryOrders": true
+    "deliveryOrders": true,
+    "deliveryData": true
   },
   "source": "auto",
   "inProgress": true
