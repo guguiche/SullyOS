@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1789474285651,
+  "timestamp": 1789474295269,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -99,7 +99,7 @@
     "messages": 105,
     "summaryEntries": 6,
     "tmStories": 4,
-    "imageStore": 13
+    "imageStore": 14
   },
   "completedTables": {
     "characters": true,
