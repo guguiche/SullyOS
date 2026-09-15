@@ -1,6 +1,6 @@
 {
   "version": 6,
-  "timestamp": 1789440484873,
+  "timestamp": 1789440538687,
   "appVersion": "auto-backup",
   "tables": [
     "characters",
@@ -140,7 +140,12 @@
     "goingOutAreas": true,
     "goingOutLogs": true,
     "mapRasterCache": true,
-    "customGames": true
+    "customGames": true,
+    "customGameSaves": true,
+    "customWidgetTemplates": true,
+    "customWidgetState": true,
+    "wallpapers": true,
+    "lifeRpgData": true
   },
   "source": "auto",
   "inProgress": true
